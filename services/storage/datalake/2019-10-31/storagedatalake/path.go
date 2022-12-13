@@ -1289,6 +1289,9 @@ func (client PathClient) UpdatePreparer(ctx context.Context, action PathUpdateAc
 		queryParameters["position"] = autorest.Encode("query", *position)
 	}
 	if retainUncommittedData != nil {
+		// fix: this needs to be all lowercase, otherwise with camel-case
+		// "retainUncommittedData" this code will fail to sign the request correctly
+		// see https://github.com/Azure/azure-sdk-for-go/issues/16400
 		queryParameters["retainuncommitteddata"] = autorest.Encode("query", *retainUncommittedData)
 	}
 	if closeParameter != nil {
